@@ -75,16 +75,16 @@ int main(int argc, char* argv[])
     cudaFree(bdev);
     cudaFree(cdev);
 
-    srand(time(0));
-
     float* c_cpu = new float[N * N];
     unsigned int cpu_start = clock();
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++)
         {
+            float summ = 0;
             for (int k = 0; k < N; k++) {
-                c_cpu[i*N + j] += a[i *N + k] * b[k*N + j];
+                 summ+= a[i *N + k] * b[k*N + j];
             }
+            c_cpu[i*N + j]=summ;
         }
     }
     unsigned int cpu_end = clock();
